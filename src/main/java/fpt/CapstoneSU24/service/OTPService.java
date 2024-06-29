@@ -12,9 +12,12 @@ import java.util.Date;
 
 @Service
 public class OTPService {
+    private final OTPRepository otpRepository;
 
     @Autowired
-    private OTPRepository otpRepository;
+    public  OTPService(OTPRepository otpRepository){
+        this.otpRepository = otpRepository;
+    }
 
     @Transactional
     public void updateOTPCode(String email, String codeOTP,Date expiryTime) {

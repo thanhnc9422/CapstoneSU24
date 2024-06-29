@@ -9,6 +9,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -121,5 +122,14 @@ public class JwtTokenUtil implements Serializable {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getEmailFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+    public ResponseCookie setResponseCookie(String jwtToken) {
+     return      ResponseCookie.from("jwt", jwtToken) // key & value
+                .secure(true).httpOnly(true)
+                .path("/")
+                .sameSite("None")
+                .domain(null)
+                .maxAge(jwtToken == null ? 0 : -1)
+                .build();
     }
 }

@@ -93,6 +93,24 @@
 <!--		</dependency>-->
 
 
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.17.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf -->
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-pdf</artifactId>
+			<version>9.8.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/zone.cogni.lib.httpheaders/httpheaders -->
+		<dependency>
+			<groupId>zone.cogni.lib.httpheaders</groupId>
+			<artifactId>httpheaders</artifactId>
+			<version>0.2.0</version>
+		</dependency>
 
 		<!--		to anh them-->
 
@@ -212,6 +230,14 @@
 			<artifactId>html2pdf</artifactId>
 			<version>2.1.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.4</version>
+		</dependency>
+
+
 
 		<!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-core -->
 		<!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-http44 -->
@@ -230,8 +256,26 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.5.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.5.2.Final</version>
+			<scope>provided</scope>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.firebirdsql.jdbc</groupId>-->
+<!--			<artifactId>jaybird</artifactId>-->
+<!--		</dependency>-->
+	<!--		<dependency>-->
+	<!--			<groupId>org.firebirdsql.jdbc</groupId>-->
+	<!--			<artifactId>jaybird</artifactId>-->
+	<!--			<version>4.0.8.java11</version>-->
+	<!--		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -249,6 +293,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+
+
 		<finalName>trace-origin</finalName>
 	</build>
 

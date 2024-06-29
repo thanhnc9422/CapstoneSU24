@@ -1,15 +1,13 @@
-package fpt.CapstoneSU24.payload;
+package fpt.CapstoneSU24.dto.payload;
 
 import jakarta.validation.constraints.*;
 
 import java.util.List;
 
-public class EditProductRequest {
-    @NotNull(message = "The product Id is required")
-    private int productId;
+public class AddProductRequest {
     @NotBlank(message = "The productName is required")
     private String productName;
-    @NotNull(message = "The certificateId is required")
+    @NotNull(message = "The categoryId is required")
     @Digits(integer = 5, fraction = 0, message = "Invalid digit format")
     private int categoryId;
     @NotBlank(message = "The dimensions is required")
@@ -35,10 +33,6 @@ public class EditProductRequest {
     private String avatar;
     @NotNull(message = "The file3D is required")
     private String file3D;
-
-    public int getProductId() {
-        return productId;
-    }
 
     public String getDimensions() {
         return dimensions;

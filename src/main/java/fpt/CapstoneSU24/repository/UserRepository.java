@@ -1,6 +1,7 @@
 package fpt.CapstoneSU24.repository;
 
 import fpt.CapstoneSU24.model.Origin;
+import fpt.CapstoneSU24.model.Product;
 import fpt.CapstoneSU24.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     public User findOneByEmail(String email);
     public User findOneByEmailAndPassword(String email, String password);
     Optional<User> findByEmail(String email);
+
+    @Query("SELECT u FROM User u WHERE u.status = :status")
+    List<User> findAllByStatus(@Param("status")  int status);
 
     @Query("SELECT u FROM User u " +
             "WHERE (:email IS NULL OR :email = '' OR u.email = :email) " +

@@ -1,3 +1,4 @@
+
 package fpt.CapstoneSU24.model;
 
 import jakarta.persistence.*;

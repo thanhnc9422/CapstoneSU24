@@ -4,9 +4,11 @@ import fpt.CapstoneSU24.model.Item;
 import fpt.CapstoneSU24.model.Origin;
 import fpt.CapstoneSU24.model.Product;
 import fpt.CapstoneSU24.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,5 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>  {
     Page<Product> findAllByProductNameContaining(String productName, Pageable pageable);
     Page<Product> findByManufacturerAndCreateAtBetween(User manufacturer, Long startDate, Long endDate, Pageable pageable);
     Page<Product> findByManufacturerAndProductNameContaining(User manufacturer, String productName, Pageable pageable);
+    @Modifying
+    @Transactional
     void deleteOneByProductId(int productId);
 }

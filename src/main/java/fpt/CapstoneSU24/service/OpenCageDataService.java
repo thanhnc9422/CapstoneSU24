@@ -1,7 +1,5 @@
 package fpt.CapstoneSU24.service;
 
-import fpt.CapstoneSU24.payload.VerifyAddressRequest;
-import jakarta.validation.Valid;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -10,9 +8,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 import java.net.URLEncoder;

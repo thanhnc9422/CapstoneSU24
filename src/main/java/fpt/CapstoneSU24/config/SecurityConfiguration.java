@@ -76,7 +76,9 @@ public class SecurityConfiguration {
                                 "api/transport/getAllTransport",
                                 "api/item/sendCurrentOwnerOTP",
                                 "api/item/confirmCurrentOwner",
-                                "api/user/getUserById"
+                                "api/user/getUserById",
+                                "api/item/getTESTCertificate",
+                                "api/item/convertHtmlToPdf"
 
                         ).permitAll()
                         .anyRequest().authenticated())

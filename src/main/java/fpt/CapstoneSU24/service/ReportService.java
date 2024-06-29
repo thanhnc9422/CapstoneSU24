@@ -1,32 +1,36 @@
 package fpt.CapstoneSU24.service;
 
 import fpt.CapstoneSU24.dto.B02.B02_GetListReport;
+import fpt.CapstoneSU24.dto.B02.B02_RequestFilterTable;
 import fpt.CapstoneSU24.dto.ReportDetailDto;
 import fpt.CapstoneSU24.model.ImageReport;
 import fpt.CapstoneSU24.model.Report;
 import fpt.CapstoneSU24.repository.ReportRepository;
 import fpt.CapstoneSU24.util.DataUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
 
+    private final ReportRepository reportRepository;
+    private final EpochDate epochDate;
     @Autowired
-    private ReportRepository reportRepository;
-
-    @Autowired
-    private EpochDate epochDate;
+    public ReportService(ReportRepository reportRepository,EpochDate epochDate){
+        this.epochDate = epochDate;
+        this.reportRepository = reportRepository;
+    }
 
 
     public Page<B02_GetListReport> getListReports(String code,
@@ -108,5 +112,46 @@ public class ReportService {
         reportDetailDto.setReportTo(report.getReportTo().getEmail());
         reportDetailDto.setReportImage(imageReport);
         return reportDetailDto;
+    }
+
+    public ResponseEntity<Page<B02_GetListReport>> getListReports(B02_RequestFilterTable requestFilter) {
+        long dateFromEpoch = requestFilter.getDateFrom() != null ? requestFilter.getDateFrom().atStartOfDay(ZoneId.systemDefault()).toEpochSecond() : 0;
+        long dateToEpoch = requestFilter.getDateTo() != null ? requestFilter.getDateTo().atStartOfDay(ZoneId.systemDefault()).toEpochSecond() : 0;
+
+        Integer  reportBy = null;
+        Integer type = null;
+        Integer status = null;
+
+        if (requestFilter.getReportBy() > -1) {
+            reportBy = -1;
+        }
+        if (requestFilter.getType() > -1) {
+            type = -1;
+        }
+        if (requestFilter.getStatus()  > -1) {
+            status = -1;
+        }
+
+        Page<B02_GetListReport> b02GetListReports = getListReports(
+                requestFilter.getCode(),
+                requestFilter.getTitle(),
+                reportBy,
+                type,
+                dateFromEpoch,
+                dateToEpoch,
+                status,
+                requestFilter.getOrderBy(),
+                requestFilter.getAsc(),
+                requestFilter.getPage(),
+                requestFilter.getSize());
+        return  ResponseEntity.ok(b02GetListReports);
+    }
+
+    public ResponseEntity<?> getReportById(String req) {
+        ReportDetailDto reportDetail = new ReportDetailDto();
+        JSONObject jsonObject = new JSONObject(req);
+        int reportId = jsonObject.has("reportId") ? jsonObject.getInt("reportId") : -1;
+        reportDetail = getDetailReport(reportId);
+        return ResponseEntity.ok(reportDetail);
     }
 }

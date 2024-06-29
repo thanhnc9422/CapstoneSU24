@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/test")
 public class RedisTestController {
 
+
+    private final RedisTemplate<String, Object> redisTemplate;
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    public RedisTestController(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @GetMapping("/test-redis")
     public String testRedisConnection() {

@@ -11,23 +11,28 @@ import fpt.CapstoneSU24.util.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class ClientService implements ClientRepository {
+    private final EmailService mailService;
+    private final RedisSortedSetService redisSortedSetService;
+    private final OTPRepository otpResponsitory;
+    private final PartyRepository partyRepository;
+    private final OTPService otpService;
+
     @Autowired
-    private EmailService mailService;
-    @Autowired
-    private RedisSortedSetService redisSortedSetService;
-    @Autowired
-    private OTPRepository otpResponsitory;
-    @Autowired
-    private PartyRepository partyRepository;
-    @Autowired
-    private  OTPService otpService;
+    public ClientService(EmailService mailService, RedisSortedSetService redisSortedSetService,
+                         OTPRepository otpResponsitory, PartyRepository partyRepository, OTPService otpService) {
+        this.mailService = mailService;
+        this.redisSortedSetService = redisSortedSetService;
+        this.otpResponsitory = otpResponsitory;
+        this.partyRepository = partyRepository;
+        this.otpService = otpService;
+
+    }
 
     @Override
     public Boolean create(ClientSdi sdi) {
@@ -129,12 +134,7 @@ public class ClientService implements ClientRepository {
     @Override
     public Boolean checkOTPinSQL(String email, String otp) {
         try {
-            boolean otpRar = otpService.verifyOTP(email,otp);
-            if(otpRar) {
-                return true;
-            }
-            else return false;
-
+            return otpService.verifyOTP(email, otp);
         } catch (Exception exp) {
             exp.printStackTrace();
         }

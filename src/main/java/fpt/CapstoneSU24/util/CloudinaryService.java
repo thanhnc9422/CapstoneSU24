@@ -75,6 +75,17 @@ public class CloudinaryService {
             publicId = uploadResult.get("public_id").toString();
             return publicId;
         }
+
+    }
+    public String uploadPdfToCloudinary(byte[] pdfData, String fileName) throws IOException {
+        try {
+            Map uploadResult = cloudinary.uploader().upload(pdfData,
+                    ObjectUtils.asMap("resource_type", "auto", "public_id", fileName));
+            return (String) uploadResult.get("secure_url");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     public MultipartFile convertBase64ToImgFile(String base64String) throws IOException {
         try {
@@ -84,16 +95,18 @@ public class CloudinaryService {
             return null;
         }
     }
-        public static MultipartFile convertBase64ToMultipartFile(String base64String, String fileName) throws IOException {
-            // Decode Base64 string to byte array
-            byte[] decodedBytes = Base64.getDecoder().decode(base64String);
 
-            // Create MultipartFile
-            return new MockMultipartFile(
-                    fileName,          // Filename
-                    fileName,          // Original filename
-                    "image/png",       // Content type
-                    new ByteArrayInputStream(decodedBytes)  // InputStream
-            );
-        }
+    public static MultipartFile convertBase64ToMultipartFile(String base64String, String fileName) throws IOException {
+        // Decode Base64 string to byte array
+        byte[] decodedBytes = Base64.getDecoder().decode(base64String);
+
+        // Create MultipartFile
+        return new MockMultipartFile(
+                fileName,          // Filename
+                fileName,          // Original filename
+                "image/png",       // Content type
+                new ByteArrayInputStream(decodedBytes)  // InputStream
+        );
+    }
+
 }

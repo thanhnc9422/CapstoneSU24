@@ -16,8 +16,9 @@ public class Const {
     public final static class TEMPLATE_FILE_NAME {
         public final static String CLIENT_REGISTER = "client";
         public final static String CLIENT_NOTIFICATION = "clientNoti";
-
         public final  static  String CLIENT_SENDOTP = "sendOTP";
+
+        public final  static  String CERTIFICATE = "certificate";
 
         public final static String LOCKUSER_DETAIL = "lockUserMail";
         public final static String UNLOCKUSER_DETAIL = "UnLockUserMail";

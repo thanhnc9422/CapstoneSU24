@@ -15,27 +15,21 @@ services:
 
     networks:
       - servernet
-
   springboot-app:
-#    container_name: spring-app
+    #    container_name: spring-app
     image: trace.origin:1.1.0
     restart: always
     depends_on:
       - mssql
     build: .
     ports:
-      - 8081-8083:8080
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:sqlserver://mssql:1433;databaseName=CapstoneSU24;trustServerCertificate=true;
-      - SPRING_DATASOURCE_USERNAME=sa
-      - SPRING_DATASOURCE_PASSWORD=reallyStrongPwd123
-    networks:
-      - servernet
+      - 8080:8080
 
- 
+
 volumes:
   bedata1:
     driver: local
 
 networks:
   servernet:
+    

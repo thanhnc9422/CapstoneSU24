@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <style>
+        #pdf-viewer {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<h1>PDF Viewer</h1>
+<canvas id="pdf-viewer"></canvas>
+
+<script>
+    // URL to the PDF file
+    const pdfUrl = 'https://res.cloudinary.com/ds2d9tipg/image/upload/v1719509129/trace_origin_cert_of%2Bg4NGU0YjMx.pdf';
+
+    // Asynchronous download of PDF
+    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+    loadingTask.promise.then(pdf => {
+        console.log('PDF loaded');
+
+        // Fetch the first page
+        const pageNumber = 1;
+        pdf.getPage(pageNumber).then(page => {
+            console.log('Page loaded');
+
+            const scale = 1.5;
+            const viewport = page.getViewport({ scale });
+
+            // Prepare canvas using PDF page dimensions
+            const canvas = document.getElementById('pdf-viewer');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Render PDF page into canvas context
+            const renderContext = {
+                canvasContext: context,
+                viewport
+            };
+            const renderTask = page.render(renderContext);
+            renderTask.promise.then(() => {
+                console.log('Page rendered');
+            });
+        });
+    }).catch(reason => {
+        console.error('Error loading PDF:', reason);
+    });
+</script>
+</body>
+</html>

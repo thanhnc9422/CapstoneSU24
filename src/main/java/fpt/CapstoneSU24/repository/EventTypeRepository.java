@@ -5,6 +5,6 @@ import fpt.CapstoneSU24.model.ItemLog;
 import fpt.CapstoneSU24.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface  EventTypeRepository extends JpaRepository<EventType, Integer> {
+public interface EventTypeRepository extends JpaRepository<EventType, Integer> {
     public EventType findOneByEventId(int id);
 }

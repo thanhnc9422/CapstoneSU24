@@ -9,15 +9,19 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.Random;
 import java.util.UUID;
 
 @Service
 
-public class QRCodeGenerator {
+public class  QRCodeGenerator {
+
+public final ProductRepository productRepository;
+
     @Autowired
-public ProductRepository productRepository;
-    private static final Random random = new Random();
+    public QRCodeGenerator(ProductRepository productRepository){
+        this.productRepository= productRepository;
+    }
+    //private static final Random random = new Random();
 //    public String generateProductCode(int productId, int quantity) throws NoSuchAlgorithmException {
 //
 //        Product product = productRepository.findOneByProductId(productId);
@@ -49,9 +53,8 @@ public ProductRepository productRepository;
         String rawCode = product.getProductName() + "-" + product.getCategory().getName()  + "-" + address + "-" + currentTimeMillis;
 
         // Hash the raw code using SHA-256
-        String hashedCode = hashString(rawCode);
 
-        return hashedCode;
+        return hashString(rawCode);
     }
 
     private String hashString(String input) throws NoSuchAlgorithmException {
@@ -73,7 +76,7 @@ public ProductRepository productRepository;
         UUID uuid = UUID.randomUUID();
 
         // Lấy thời gian hiện tại dưới dạng milliseconds
-        long currentTimeMillis = System.currentTimeMillis();
+     //   long currentTimeMillis = System.currentTimeMillis();
 
         // Tạo chuỗi mã sản phẩm dựa trên các thông tin
         String rawCode = product.getProductName()+ uuid.toString();
@@ -81,7 +84,7 @@ public ProductRepository productRepository;
         // Mã hóa chuỗi thành Base64 để dễ đọc hơn
         String encodedCode = Base64.getUrlEncoder().encodeToString(rawCode.getBytes(StandardCharsets.UTF_8));
         System.out.println(encodedCode);
-        return (encodedCode.substring(encodedCode.length() - 10, encodedCode.length()));
+        return (encodedCode.substring(encodedCode.length() - 10));
     }
 
 

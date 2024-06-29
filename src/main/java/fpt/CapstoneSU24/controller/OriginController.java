@@ -1,27 +1,27 @@
 package fpt.CapstoneSU24.controller;
 
-import fpt.CapstoneSU24.model.Origin;
-import fpt.CapstoneSU24.model.Product;
-import fpt.CapstoneSU24.repository.OriginRepository;
-import fpt.CapstoneSU24.repository.ProductRepository;
-import org.json.JSONObject;
+import fpt.CapstoneSU24.service.OriginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/origin")
 public class OriginController {
+
+    private final OriginService originService;
+
     @Autowired
-    private OriginRepository originRepository;
-    @Autowired
-    private ProductRepository productRepository;
+    public OriginController(OriginService originService) {
+        this.originService = originService;
+    }
+
     @GetMapping("/findAll")
-    public ResponseEntity findAll() {
-        List<Origin> originList = originRepository.findAll();
-        return ResponseEntity.ok(originList);
+    public ResponseEntity<?> findAll() {
+        return originService.findAll();
+
     }
 //    @PostMapping("/findByIdProduct")
 //    public ResponseEntity findOriginByProduct(@RequestBody String req) {

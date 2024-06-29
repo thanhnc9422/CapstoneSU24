@@ -37,6 +37,8 @@ public class ItemLog {
     @OneToOne(mappedBy = "itemLog", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private ImageItemLog imageItemLog;
+     @Column(name = "point", columnDefinition = "nvarchar(50)")
+     private String point;
 /*    @Column(name = "event_id")
     private int event_id;*/
 
@@ -174,5 +176,13 @@ public class ItemLog {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getPoint() {
+        return point;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
     }
 }

@@ -12,18 +12,18 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.text.DecimalFormat;
-import java.util.Random;
-
 @Service
 @Slf4j
 public class EmailService implements EmailServiceRepository {
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
+
+    private final SpringTemplateEngine templateEngine;
 
     @Autowired
-    private SpringTemplateEngine templateEngine;
-
+    public EmailService(JavaMailSender mailSender,SpringTemplateEngine templateEngine){
+        this.mailSender = mailSender;
+        this.templateEngine = templateEngine;
+    }
     @Override
     public void sendHtmlMail(DataMailDTO dataMail, String templateName) throws MessagingException {
 

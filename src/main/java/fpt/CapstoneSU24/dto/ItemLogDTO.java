@@ -20,8 +20,6 @@ public class ItemLogDTO {
     @NotNull(message = "The street is required")
     private String street;
     @NotNull(message = "The coordinateX is required")
-  //  @DecimalMin(value = "-90.0", message = "Latitude must be greater than or equal to -90.0")
-    //@DecimalMax(value = "90.0", message = "Latitude must be less than or equal to 90.0")
 
     private String coordinateX;
     @NotNull(message = "The coordinateY is required")

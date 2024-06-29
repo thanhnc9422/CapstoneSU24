@@ -1,8 +1,8 @@
 package fpt.CapstoneSU24.controller;
 
 import fpt.CapstoneSU24.model.Role;
-import fpt.CapstoneSU24.model.User;
 import fpt.CapstoneSU24.repository.RoleRepository;
+import fpt.CapstoneSU24.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {
+    private final RoleService roleService;
     @Autowired
-    private RoleRepository roleRepository;
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @GetMapping("/getAllRole")
-    public ResponseEntity getAllUser() {
-        List<Role> roles = roleRepository.findAll();
-        return ResponseEntity.ok(roles);
+    public ResponseEntity<?> getAllUser() {
+        return roleService.getAllUsers();
     }
 }

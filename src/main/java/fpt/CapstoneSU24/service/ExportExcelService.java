@@ -17,8 +17,12 @@ import javax.sql.DataSource;
 
 @Service
 public class ExportExcelService {
+
+   private final TimeStampUtil timeStampUtil;
     @Autowired
-    TimeStampUtil timeStampUtil;
+    public ExportExcelService(TimeStampUtil timeStampUtil){
+        this.timeStampUtil = timeStampUtil;
+    }
     public byte[] exportItemToExcel(List<Item> itemList) throws IOException {
 
         Workbook workbook = new XSSFWorkbook();

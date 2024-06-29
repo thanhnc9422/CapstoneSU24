@@ -1,4 +1,4 @@
-package fpt.CapstoneSU24.payload;
+package fpt.CapstoneSU24.dto.payload;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;

@@ -1,23 +1,22 @@
 package fpt.CapstoneSU24.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
 import lombok.Data;
+
 @Data
 
 public class EventItemLogDTO {
-        //  private int userId;
-        private String address;
-        private String city;
-        private String country;
-        private String coordinateX;
-        private String coordinateY;
-        private String descriptionItemLog;
+    //  private int userId;
+    private String address;
+    private String city;
+    private String country;
+    private String coordinateX;
+    private String coordinateY;
+    private String descriptionItemLog;
     @JsonIgnore
-
     private int authorizedId;
-        private String productRecognition;
-        private int eventId;
+    private String productRecognition;
+    private int eventId;
     @JsonIgnore
     private String phoneParty;
     @JsonIgnore
@@ -25,8 +24,9 @@ public class EventItemLogDTO {
     @JsonIgnore
     private String emailParty;
     @JsonIgnore
-        private byte[] imageItemLog;
-        private int transportId;
+    private byte[] imageItemLog;
+    private int transportId;
+
     public int getTransportId() {
         return transportId;
     }

@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class B03_GetDataGridDTO {
 
-    private long recordNumber;
     private int userId;
     private Date createOn;
     private String username;
@@ -20,14 +19,6 @@ public class B03_GetDataGridDTO {
     private String phone;
     private String city;
     private Integer status;
-
-    public long getRecordNumber() {
-        return recordNumber;
-    }
-
-    public void setRecordNumber(long recordNumber) {
-        this.recordNumber = recordNumber;
-    }
 
     public String getCity() {
         return city;

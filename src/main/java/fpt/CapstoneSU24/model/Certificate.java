@@ -1,5 +1,6 @@
 package fpt.CapstoneSU24.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,19 +14,20 @@ public class Certificate {
     private String certificateName;
     @Column(name = "issuing_authority", columnDefinition = "nvarchar(50)")
     private String issuingAuthority;
-    @Column(name = "image", columnDefinition = "varbinary(MAX)")
-    private byte[] image;
+    @Column(name = "images", columnDefinition = "nvarchar(MAX)")
+    private String images;
     @Column(name = "issuance_date")
     private long issuanceDate;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     private User manufacturer;
 
-    public Certificate(int certificateId, String certificateName, String issuingAuthority, byte[] image, long issuanceDate, User manufacturer) {
+    public Certificate(int certificateId, String certificateName, String issuingAuthority, String images, long issuanceDate, User manufacturer) {
         this.certificateId = certificateId;
         this.certificateName = certificateName;
         this.issuingAuthority = issuingAuthority;
-        this.image = image;
+        this.images = images;
         this.issuanceDate = issuanceDate;
         this.manufacturer = manufacturer;
     }
@@ -57,12 +59,12 @@ public class Certificate {
         this.issuingAuthority = issuingAuthority;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImages() {
+        return images;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImages(String images) {
+        this.images = images;
     }
 
     public long getIssuanceDate() {

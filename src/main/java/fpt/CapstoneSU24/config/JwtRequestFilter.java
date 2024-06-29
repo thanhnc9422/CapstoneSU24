@@ -59,41 +59,25 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 //                check matching in database
                 User currentUser = userRepository.findOneByEmail(username);
                 authToken = authTokenRepository.findOneById(currentUser.getUserId());
-               // System.out.println("To anh oi authToken" + authToken);
-                //System.out.println("To anh oi jwtToken" + jwtToken);
 
                 pevJwtToken = authToken.getJwtHash();
-               // System.out.println("To anh oi" + pevJwtToken);
 
                 if(jwtToken.equals(pevJwtToken)){
                     //generate new token and save in database
                     String newJwtToken = jwtService.generateToken(currentUser, currentUser);
                     //save in cookie
-                    ResponseCookie cookie = ResponseCookie.from("jwt", newJwtToken) // key & value
-                            .secure(true).httpOnly(true)
-                            .path("/")
-                            .sameSite("None")
-                            .domain(null)
-                            .maxAge(-1)
-                            .build();
-                    response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+                    response.setHeader(HttpHeaders.SET_COOKIE, jwtTokenUtil.setResponseCookie(newJwtToken).toString());
                 }else {
                     logger.warn("JWT Token does not matching");
                     //set all session is null
                     authToken.setJwtHash(null);
                     authTokenRepository.save(authToken);
+                    response.setHeader(HttpHeaders.SET_COOKIE, jwtTokenUtil.setResponseCookie(null).toString());
                 }
             } catch (IllegalArgumentException e) {
                 //delete jwt in browser
                 System.out.println("Unable to get JWT Token");
-                ResponseCookie cookie = ResponseCookie.from("jwt", null) // key & value
-                        .secure(true).httpOnly(true)
-                        .path("/")
-                        .sameSite("None")
-                        .domain(null)
-                        .maxAge(0)
-                        .build();
-                response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+                response.setHeader(HttpHeaders.SET_COOKIE, jwtTokenUtil.setResponseCookie(null).toString());
 
             } catch (ExpiredJwtException e) {
                 System.out.println("JWT Token has expired");
@@ -104,23 +88,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     authToken.setJwtHash(null);
                     authTokenRepository.save(authToken);
                 }catch (Exception ex){
-                    ResponseCookie cookie = ResponseCookie.from("jwt", null) // key & value
-                            .secure(true).httpOnly(true)
-                            .path("/")
-                            .sameSite("None")
-                            .domain(null)
-                            .maxAge(0)
-                            .build();
-                    response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+                    response.setHeader(HttpHeaders.SET_COOKIE, jwtTokenUtil.setResponseCookie(null).toString());
                 }
-
                 // set cookie í null
             }
             }else{
                 logger.warn("JWT Token does not exist");
             }
-
-
         // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null && jwtToken.equals(pevJwtToken)) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
