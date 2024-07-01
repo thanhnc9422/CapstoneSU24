@@ -13,7 +13,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
-    private  CloudinaryService cloudinaryService;
+    private CloudinaryService cloudinaryService;
 
     @Autowired
     public TestController(CloudinaryService cloudinaryService) {
@@ -40,6 +40,26 @@ public class TestController {
             return new ResponseEntity<>(image, headers, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/update")
+    public ResponseEntity<?> updateImg(@RequestParam String publicId, @RequestParam("file") MultipartFile file) {
+        try {
+            cloudinaryService.updateImage(publicId, file);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/delete")
+    public ResponseEntity<?> deleteImg(@RequestParam String publicId) {
+        try {
+            cloudinaryService.deleteImage(publicId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>("Error deleting image: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

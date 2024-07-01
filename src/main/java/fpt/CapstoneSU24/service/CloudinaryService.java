@@ -109,4 +109,19 @@ public class CloudinaryService {
         );
     }
 
+    public void deleteImage(String publicId) {
+        try {
+            Map<String, Object> result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+            System.out.println("Image deleted: " + result.get("result"));
+        } catch (IOException e) {
+            throw new RuntimeException("Error deleting image from Cloudinary: ", e);
+        }
+    }
+
+    public void updateImage(String publicId, @org.jetbrains.annotations.NotNull MultipartFile updateFile) throws IOException {
+            deleteImage(publicId);
+            uploadImage(updateFile, publicId);
+    }
+
+
 }
