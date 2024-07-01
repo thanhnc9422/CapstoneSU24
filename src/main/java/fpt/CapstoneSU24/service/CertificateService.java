@@ -8,7 +8,6 @@ import fpt.CapstoneSU24.model.User;
 import fpt.CapstoneSU24.dto.payload.IdRequest;
 import fpt.CapstoneSU24.repository.CertificateRepository;
 import fpt.CapstoneSU24.repository.UserRepository;
-import fpt.CapstoneSU24.util.CloudinaryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

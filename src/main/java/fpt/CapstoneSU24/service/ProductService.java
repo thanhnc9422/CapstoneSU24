@@ -1,6 +1,7 @@
 package fpt.CapstoneSU24.service;
 
 
+import fpt.CapstoneSU24.mapper.ProductMapper;
 import fpt.CapstoneSU24.model.ImageProduct;
 import fpt.CapstoneSU24.model.Product;
 import fpt.CapstoneSU24.model.User;
@@ -9,7 +10,6 @@ import fpt.CapstoneSU24.dto.payload.EditProductRequest;
 import fpt.CapstoneSU24.dto.payload.FilterSearchRequest;
 import fpt.CapstoneSU24.dto.payload.IdRequest;
 import fpt.CapstoneSU24.repository.*;
-import fpt.CapstoneSU24.util.CloudinaryService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +37,8 @@ public class ProductService {
     private ImageProductRepository imageProductRepository;
     @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private ProductMapper productMapper;
 
     public ResponseEntity addProduct(AddProductRequest req) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -82,6 +84,9 @@ public class ProductService {
         if (currentUser.getRole().getRoleId() == 2) {
             try {
                 Product product = productRepository.findOneByProductId(req.getProductId());
+                if (product == null){
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("product id don't exists");
+                }
                 product.setProductName(req.getProductName());
                 product.setCategory(categoryRepository.findOneByCategoryId(req.getCategoryId()));
 //            product.setUnitPrice(req.getUnitPrice());
@@ -137,7 +142,7 @@ public class ProductService {
             } else {
                 products = productRepository.findByManufacturerAndProductNameContaining(currentUser, req.getName(), pageable);
             }
-            return ResponseEntity.status(HttpStatus.OK).body(products);
+            return ResponseEntity.status(HttpStatus.OK).body(products.map(productMapper::productToProductDTOResponse));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error when fetching data");
         }

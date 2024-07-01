@@ -7,7 +7,6 @@ import fpt.CapstoneSU24.dto.DataMailDTO;
 import fpt.CapstoneSU24.dto.UserProfileDTO;
 import fpt.CapstoneSU24.model.*;
 import fpt.CapstoneSU24.repository.*;
-import fpt.CapstoneSU24.util.CloudinaryService;
 import fpt.CapstoneSU24.util.Const;
 import fpt.CapstoneSU24.util.DocumentGenerator;
 import jakarta.mail.MessagingException;

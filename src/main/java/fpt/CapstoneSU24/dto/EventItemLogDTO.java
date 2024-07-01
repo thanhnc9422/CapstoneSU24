@@ -10,8 +10,8 @@ public class EventItemLogDTO {
     private String address;
     private String city;
     private String country;
-    private String coordinateX;
-    private String coordinateY;
+    private double coordinateX;
+    private double coordinateY;
     private String descriptionItemLog;
     @JsonIgnore
     private int authorizedId;
@@ -62,19 +62,19 @@ public class EventItemLogDTO {
         this.country = country;
     }
 
-    public String getCoordinateX() {
+    public double getCoordinateX() {
         return coordinateX;
     }
 
-    public void setCoordinateX(String coordinateX) {
+    public void setCoordinateX(double coordinateX) {
         this.coordinateX = coordinateX;
     }
 
-    public String getCoordinateY() {
+    public double getCoordinateY() {
         return coordinateY;
     }
 
-    public void setCoordinateY(String coordinateY) {
+    public void setCoordinateY(double coordinateY) {
         this.coordinateY = coordinateY;
     }
 

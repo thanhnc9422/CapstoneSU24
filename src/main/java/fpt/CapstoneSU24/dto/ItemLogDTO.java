@@ -21,12 +21,12 @@ public class ItemLogDTO {
     private String street;
     @NotNull(message = "The coordinateX is required")
 
-    private String coordinateX;
+    private double coordinateX;
     @NotNull(message = "The coordinateY is required")
    // @DecimalMin(value = "-180.0", message = "Longitude must be greater than or equal to -180.0")
    // @DecimalMax(value = "180.0", message = "Longitude must be less than or equal to 180.0")
 
-    private String coordinateY;
+    private double coordinateY;
 
     private String descriptionOrigin;
 
@@ -81,24 +81,23 @@ public class ItemLogDTO {
                 this.country = country;
         }
 
-        public String getCoordinateX() {
-                return coordinateX;
-        }
+    public double getCoordinateX() {
+        return coordinateX;
+    }
 
-        public void setCoordinateX(String coordinateX) {
-                this.coordinateX = coordinateX;
-        }
+    public void setCoordinateX(double coordinateX) {
+        this.coordinateX = coordinateX;
+    }
 
-        public String getCoordinateY() {
-                return coordinateY;
-        }
+    public double getCoordinateY() {
+        return coordinateY;
+    }
 
-        public void setCoordinateY(String coordinateY) {
-                this.coordinateY = coordinateY;
-        }
+    public void setCoordinateY(double coordinateY) {
+        this.coordinateY = coordinateY;
+    }
 
-
-        public String getDescriptionOrigin() {
+    public String getDescriptionOrigin() {
                 return descriptionOrigin;
         }
 

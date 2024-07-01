@@ -10,22 +10,22 @@ public class OriginDTO {
     private String DescriptionProduct;
     private String DescriptionOrigin;
      private int Warranty;
- private String CoordinateX;
- private String CoordinateY;
+ private double CoordinateX;
+ private double CoordinateY;
 
-    public String getCoordinateX() {
+    public double getCoordinateX() {
         return CoordinateX;
     }
 
-    public void setCoordinateX(String coordinateX) {
+    public void setCoordinateX(double coordinateX) {
         CoordinateX = coordinateX;
     }
 
-    public String getCoordinateY() {
+    public double getCoordinateY() {
         return CoordinateY;
     }
 
-    public void setCoordinateY(String coordinateY) {
+    public void setCoordinateY(double coordinateY) {
         CoordinateY = coordinateY;
     }
 

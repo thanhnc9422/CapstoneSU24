@@ -8,7 +8,6 @@ import fpt.CapstoneSU24.model.*;
 import fpt.CapstoneSU24.dto.payload.FilterByTimeStampRequest;
 import fpt.CapstoneSU24.dto.payload.FilterSearchRequest;
 import fpt.CapstoneSU24.repository.*;
-import fpt.CapstoneSU24.util.CloudinaryService;
 import fpt.CapstoneSU24.util.Const;
 import fpt.CapstoneSU24.util.DocumentGenerator;
 import org.json.JSONException;
@@ -177,8 +176,8 @@ public class ItemService {
     }
 
     private void validateAndSetCoordinates(Location location, ItemLogDTO itemLogDTO) throws ItemController.InvalidCoordinateException, ItemController.CoordinateOutOfRangeException {
-        double corX = parseCoordinate(itemLogDTO.getCoordinateX());
-        double corY = parseCoordinate(itemLogDTO.getCoordinateY());
+        double corX = itemLogDTO.getCoordinateX();
+        double corY = itemLogDTO.getCoordinateY();
 
         // Check if corX and corY are within their valid ranges
         if ((-90.0 <= corX && corX <= 90.0) && (-180.0 <= corY && corY <= 180.0)) {

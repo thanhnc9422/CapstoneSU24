@@ -2,6 +2,7 @@ package fpt.CapstoneSU24.controller;
 
 import fpt.CapstoneSU24.dto.payload.CreateCategoryRequest;
 import fpt.CapstoneSU24.dto.payload.EditCategoryRequest;
+import fpt.CapstoneSU24.dto.payload.FilterSearchRequest;
 import fpt.CapstoneSU24.dto.payload.IdRequest;
 import fpt.CapstoneSU24.service.CategoryService;
 import fpt.CapstoneSU24.service.JwtService;
@@ -38,4 +39,9 @@ public class CategoryController {
     public ResponseEntity deleteById(@Valid @RequestBody IdRequest req) {
         return categoryService.deleteById(req);
     }
+    @PostMapping("/search")
+    public ResponseEntity search(@Valid @RequestBody FilterSearchRequest req) {
+        return categoryService.searchItem(req);
+    }
+
 }

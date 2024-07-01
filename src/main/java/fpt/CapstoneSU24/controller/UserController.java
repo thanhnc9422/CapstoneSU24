@@ -3,9 +3,11 @@ package fpt.CapstoneSU24.controller;
 import fpt.CapstoneSU24.dto.B03.B03_GetDataGridDTO;
 import fpt.CapstoneSU24.dto.B03.B03_RequestDTO;
 import fpt.CapstoneSU24.dto.UserProfileDTO;
+import fpt.CapstoneSU24.dto.payload.UpdateStatusUserRequest;
 import fpt.CapstoneSU24.model.Role;
 import fpt.CapstoneSU24.model.User;
 import fpt.CapstoneSU24.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -38,9 +40,9 @@ public class UserController {
     }
 
 
-    @PutMapping("/lockUser")
-    public ResponseEntity<String> updateStatus(@RequestParam int userId, @RequestParam int status) {
-        return userService.updateStatus(userId,status);
+    @PostMapping("/updateStatus")
+    public ResponseEntity<String> updateStatus(@Valid @RequestBody UpdateStatusUserRequest req) {
+        return userService.updateStatus(req.getId(), req.getStatus());
     }
 
 

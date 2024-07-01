@@ -17,6 +17,7 @@ public interface ImageProductRepository extends JpaRepository<ImageProduct, Inte
     ImageProduct findByproductId(@Param("productId") int productId);
     @Query("SELECT o FROM ImageProduct o WHERE o.product.productId = :id")
     List<ImageProduct> findAllByProductId(@Param("id")  int id);
+    ImageProduct findAllByFilePath(String filePath);
     @Modifying
     @Transactional
     @Query("DELETE FROM ImageProduct i WHERE i.product.productId = :id AND i.filePath LIKE 'avatar%'")

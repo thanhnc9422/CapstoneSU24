@@ -69,10 +69,10 @@ public class AuthenticationService {
     public ResponseEntity signup(RegisterRequest input) {
         try {
             if (userRepository.findOneByEmail(input.getEmail()) == null) {
-                if (roleRepository.findOneByRoleId(2) == null) {
-                    roleRepository.save(new Role(0, "admin"));
-                    roleRepository.save(new Role(0, "manufacture"));
-                }
+//                if (roleRepository.findOneByRoleId(2) == null) {
+//                    roleRepository.save(new Role(0, "admin"));
+//                    roleRepository.save(new Role(0, "manufacture"));
+//                }
                 User user = new User();
                 user.setEmail(input.getEmail());
                 user.setFirstName(input.getFirstName());
@@ -114,25 +114,26 @@ public class AuthenticationService {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             User currentUser = (User) authentication.getPrincipal();
-                AuthToken authToken = authTokenRepository.findOneById(currentUser.getUserId());
-                if (authToken != null) {
-                    authToken.setJwtHash(null);
-                    authTokenRepository.save(authToken);
-                }
+            AuthToken authToken = authTokenRepository.findOneById(currentUser.getUserId());
+            if (authToken != null) {
+                authToken.setJwtHash(null);
+                authTokenRepository.save(authToken);
+            }
 
-                ResponseCookie cookie = ResponseCookie.from("jwt", null) // key & value
-                        .secure(true).httpOnly(true)
-                        .path("/")
-                        .sameSite("None")
-                        .domain(null)
-                        .maxAge(0)
-                        .build();
-                response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-                return ResponseEntity.status(HttpStatus.OK).body("logout successfully");
+            ResponseCookie cookie = ResponseCookie.from("jwt", null) // key & value
+                    .secure(true).httpOnly(true)
+                    .path("/")
+                    .sameSite("None")
+                    .domain(null)
+                    .maxAge(0)
+                    .build();
+            response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+            return ResponseEntity.status(HttpStatus.OK).body("logout successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("don't have any jwt token to logout");
         }
     }
+
     public ResponseEntity<String> changePassword(ChangePasswordDto changePasswordDto) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -156,6 +157,7 @@ public class AuthenticationService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
     }
+
     public ResponseEntity<String> forgetPassword(ForgotPasswordRequest req) {
         try {
             JSONObject jsonNode = new JSONObject(req);
@@ -163,7 +165,7 @@ public class AuthenticationService {
             User user = userRepository.findOneByEmail(email);
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Email incorrect !!!");
-            }else{
+            } else {
                 String rndPass = generateRandomPassword();
                 user.setPassword(rndPass);
                 ChangePassword(user);

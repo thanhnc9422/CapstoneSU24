@@ -16,9 +16,9 @@ public class Location {
     @Column(name = "country", columnDefinition = "nvarchar(50)")
     private String country;
     @Column(name = "coordinateX", columnDefinition = "nvarchar(50)")
-    private String coordinateX;
+    private double coordinateX;
     @Column(name = "coordinateY", columnDefinition = "nvarchar(50)")
-    private String coordinateY;
+    private double coordinateY;
     //manhdt
     //them quan huyen phuong xa
     @Column(name = "district", columnDefinition = "nvarchar(100)")
@@ -34,7 +34,7 @@ public class Location {
 
     }
 
-    public Location(int locationId, String address, String city, String country, String coordinateX, String coordinateY, String district, String ward) {
+    public Location(int locationId, String address, String city, String country, double coordinateX, double coordinateY, String district, String ward) {
         this.locationId = locationId;
         this.address = address;
         this.city = city;
@@ -77,19 +77,19 @@ public class Location {
         this.country = country;
     }
 
-    public String getCoordinateX() {
+    public double getCoordinateX() {
         return coordinateX;
     }
 
-    public void setCoordinateX(String coordinateX) {
+    public void setCoordinateX(double coordinateX) {
         this.coordinateX = coordinateX;
     }
 
-    public String getCoordinateY() {
+    public double getCoordinateY() {
         return coordinateY;
     }
 
-    public void setCoordinateY(String coordinateY) {
+    public void setCoordinateY(double coordinateY) {
         this.coordinateY = coordinateY;
     }
 

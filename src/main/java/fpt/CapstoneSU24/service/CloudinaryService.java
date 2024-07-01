@@ -1,4 +1,4 @@
-package fpt.CapstoneSU24.util;
+package fpt.CapstoneSU24.service;
 
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
